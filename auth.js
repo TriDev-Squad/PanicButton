@@ -87,3 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener("click", handleLogout);
     }
 });
+if (!user && window.location.pathname !== "/login") {
+    window.location.href = "/login";
+}
+form.addEventListener("submit", (e) => {
+    e.preventDefault(); // stops auto refresh
+    // handle login/signup
+});
+useEffect(() => {
+  if (user) {
+    navigate("/dashboard");
+  }
+}, [user]);
+localStorage.setItem("authToken", token);
