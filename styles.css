@@ -1,0 +1,426 @@
+/* Genie App - Additional Styles */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(31, 41, 55, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.8);
+}
+
+/* Custom Range Slider Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(75, 85, 99, 0.5);
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(to right, #8B5CF6, #EC4899);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}
+
+/* Enhanced Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    }
+}
+
+.glow-animation {
+    animation: glow 3s ease-in-out infinite;
+}
+
+/* Scene Button Hover Effects */
+.scene-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.scene-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.scene-btn:hover::before {
+    left: 100%;
+}
+
+/* Modal Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.modal-content {
+    animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+/* Toast Animation */
+@keyframes toastBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-5px) translateX(-50%);
+    }
+}
+
+.toast-bounce {
+    animation: toastBounce 1s ease;
+}
+
+/* Input Focus Effects */
+input:focus, select:focus {
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3);
+    outline: none;
+}
+
+/* Recipe Card Hover Effect */
+.recipe-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Voice Button Pulse Effect Enhancement */
+@keyframes enhanced-pulse-mic {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+    }
+    70% {
+        transform: scale(1.15);
+        box-shadow: 0 0 0 15px rgba(236, 72, 153, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+    }
+}
+
+.enhanced-mic-listening {
+    animation: enhanced-pulse-mic 1.5s infinite;
+}
+
+/* Gradient Text Effect */
+.gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #8B5CF6, #EC4899);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .scene-btn {
+        padding: 1rem;
+    }
+    
+    .scene-btn svg {
+        width: 8vw;
+        height: 8vw;
+        max-width: 32px;
+        max-height: 32px;
+    }
+    
+    #voice-btn {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    
+    #voice-btn svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+/* Dark Mode Enhancement */
+.dark-mode-enhanced {
+    background: linear-gradient(to bottom, #111827, #1F2937);
+}
+
+/* Ambiance Button Effects */
+.ambiance-btn {
+    transition: all 0.3s ease;
+}
+
+.ambiance-btn:hover {
+    transform: translateY(-2px);
+}
+
+.ambiance-btn:active {
+    transform: translateY(1px);
+}
+
+/* Settings Toggle Enhancement */
+.toggle-bg {
+    transition: background-color 0.3s ease;
+}
+
+.toggle-bg:after {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+input:checked + .toggle-bg:after {
+    background-color: #fff;
+}
+
+/* Form Elements Enhancement */
+select, input[type="text"] {
+    transition: all 0.3s ease;
+}
+
+select:hover, input[type="text"]:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+/* Button Press Effect */
+button:active:not(.toggle-bg) {
+    transform: scale(0.97);
+}
+
+/* Expense Tracker Styles */
+@keyframes expense-item-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+#expense-list > div {
+    animation: expense-item-in 0.4s ease-out forwards;
+    margin-bottom: 0.75rem;
+}
+
+#total-expenses {
+    font-weight: 700;
+    color: #34D399; /* A nice green for totals */
+}
+
+/* Movie Night Scene */
+.movie-night {
+    background-color: #111;
+}
+
+/* Focus Mode Scene */
+.focus-mode .hide-in-focus {
+    display: none;
+}
+
+.focus-mode {
+    background-color: #1a202c;
+}
+
+/* General Button Press Effect */
+.btn-press-effect:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+}
+
+/* Romance Scene */
+.romance-mode {
+    background: linear-gradient(45deg, #ff89e9, #ffc3a0);
+}
+
+.heart {
+    position: fixed;
+    top: -10vh;
+    font-size: 2rem;
+    color: #ff4d4d;
+    animation: heart-float 5s linear infinite;
+    opacity: 0;
+}
+
+.heart::before {
+    content: '❤';
+}
+
+@keyframes heart-float {
+    0% {
+        transform: translateY(10vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+/* Party Mode Scene */
+.party-mode {
+    background: #000;
+    animation: party-background 2s infinite;
+}
+
+.disco-ball {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #fff, #ccc);
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
+    animation: spin 5s linear infinite;
+}
+
+@keyframes party-background {
+    0% { background-color: #ff00ff; }
+    25% { background-color: #00ffff; }
+    50% { background-color: #ffff00; }
+    75% { background-color: #00ff00; }
+    100% { background-color: #ff00ff; }
+}
+
+@keyframes spin {
+    100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* Relaxation Mode Scene */
+.relaxation-mode {
+    background: linear-gradient(to bottom, #1a365d, #2a4365, #2c5282);
+}
+
+.bubble {
+    position: fixed;
+    bottom: -50px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+    border-radius: 50%;
+    opacity: 0;
+    animation: bubble-float 10s ease-in infinite;
+}
+
+@keyframes bubble-float {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* --- New Scene Background Styles --- */
+        .bg-scene-relaxation {
+            background: #0f2027;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+            background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+        }
+        .bg-scene-focus {
+            background-color: #1a202c; /* A simple, clean dark slate for focus */
+        }
+        .bg-scene-romance {
+            background: #430a37;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #430a37, #a71d31);
+            background: linear-gradient(to right, #430a37, #a71d31);
+        }
+        .bg-scene-party {
+            background: conic-gradient(from 180deg at 50% 50%, #ef4444, #f97316, #eab308, #84cc16, #22c55e, #14b8a6, #06b6d4, #3b82f6, #8b5cf6, #d946ef, #ef4444);
+            animation: spin 10s linear infinite; /* Add a slow spin for the party mode */
+        }
+        body {
+            /* Add a transition for a smooth background change */
+            transition: background 1s ease-in-out;
+        }
+
+        /* --- Floating Hearts for Romance Mode --- */
+        @keyframes floatHearts {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(calc(var(--float-x) * 1px)) rotate(calc(var(--float-rotate) * 1deg)) scale(calc(0.5 + var(--float-scale) * 0.5)); opacity: 0; }
+        }
+
+        .heart-container {
+            position: fixed;
+            top: 100%; /* Start from bottom */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Do not block interaction with other elements */
+            overflow: hidden; /* Keep hearts within bounds */
+            z-index: 10; /* Above background, below modal/voice button */
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: 0; /* Position relative to its container */
+            font-size: 2em; /* Default size */
+            color: rgba(255, 105, 180, 0.7); /* Pink color for hearts */
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Subtle glow */
+            animation: floatHearts var(--float-duration) ease-in forwards;
+            opacity: 0;
+        }

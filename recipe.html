@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genie ✨ - Your Home's Vibe Manager</title>
+    <title>Recipe Generator - Genie ✨</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles.css">
 
     <style> 
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; transition: background 1s ease-in-out; } 
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; } 
         @keyframes spin { to { transform: rotate(360deg); } } 
         .spinner { animation: spin 1s linear infinite; } 
         .hidden { display: none !important; } 
@@ -24,22 +24,7 @@
         .mic-listening { animation: pulse-mic 1.5s infinite; } 
 
         .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 40; } 
-        .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 50; max-height: 80vh; overflow-y: auto; }
-
-        /* Scene Background Styles */
-        .bg-scene-relaxation { background: linear-gradient(to right, #2c5364, #203a43, #0f2027); }
-        .bg-scene-focus { background-color: #1a202c; }
-        .bg-scene-romance { background: linear-gradient(to right, #430a37, #a71d31); }
-        .bg-scene-party { background: conic-gradient(from 180deg at 50% 50%, #ef4444, #f97316, #eab308, #84cc16, #22c55e, #14b8a6, #06b6d4, #3b82f6, #8b5cf6, #d946ef, #ef4444); animation: spin 10s linear infinite; }
-
-        /* Floating Hearts for Romance Mode */
-        @keyframes floatHearts {
-            0% { transform: translateY(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
-        }
-        .heart-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
-        .floating-heart { position: absolute; bottom: -50px; font-size: 2em; color: rgba(255, 105, 180, 0.7); text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); animation: floatHearts 8s ease-in forwards; }
+        .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 50; max-height: 80vh; overflow-y: auto; } 
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -55,11 +40,10 @@
     <button id="voice-btn" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl text-white transform hover:scale-110 transition-transform z-30" title="Activate Voice Command">
         <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
     </button>
-    
-    <div id="heart-container" class="heart-container"></div>
 
     <div class="min-h-screen p-4 sm:p-8">
         <main class="max-w-5xl mx-auto space-y-12">
+            
             <header>
                 <div class="flex justify-between items-center mb-6">
                     <div>
@@ -72,35 +56,29 @@
                 </div>
                 
                 <nav class="flex space-x-4 sm:space-x-6 bg-gray-800/50 p-3 rounded-full justify-center">
-                    <a href="index.html" class="px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-full">Mood-buddy</a>
-                    <a href="recipe.html" class="px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-full transition">Recipes</a>
+                    <a href="index.html" class="px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-full transition">Mood-buddy</a>
+                    <a href="recipe.html" class="px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-full">Recipes</a>
                     <a href="chai-time.html" class="px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-full transition">Chai Time</a>
                     <a href="expenses.html" class="px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-full transition">Expenses</a>
                 </nav>
             </header>
 
-            <section id="scenes-module">
-                <h2 class="text-2xl font-semibold mb-4">Quick Scenes 🌈</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                    <button class="scene-btn bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-center hover:scale-105 transition shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-6-6 6 6 0 0 0-6 6c0 7 6 13 6 13s6-6 6-13z"></path><circle cx="12" cy="8" r="2"></circle></svg>
-                        <span class="block font-medium">Relaxation</span>
-                    </button>
-                    <button class="scene-btn bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-center hover:scale-105 transition shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-                        <span class="block font-medium">Focus Mode</span>
-                    </button>
-                    <button class="scene-btn bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl p-6 text-center hover:scale-105 transition shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                        <span class="block font-medium">Romance</span>
-                    </button>
-                    <button class="scene-btn bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-6 text-center hover:scale-105 transition shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"></path><path d="M4.93 10.93l1.41 1.41"></path><path d="M2 18h2"></path><path d="M20 18h2"></path><path d="M19.07 10.93l-1.41 1.41"></path><path d="M22 22H2"></path><path d="M16 6l-4 4-4-4"></path></svg>
-                        <span class="block font-medium">Party Mode</span>
-                    </button>
-                </div>
+            <section id="recipe-module">
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-lg p-6 animate-fade-in"> 
+                    <h2 class="text-2xl font-semibold mb-4">Leftover Scene Sorted 🍳</h2> 
+                    <form id="recipe-form" class="flex flex-col sm:flex-row gap-3"> 
+                        <input id="ingredients-input" type="text" placeholder="e.g., paneer, pyaaz, Shimla mirch..." class="flex-grow p-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500" /> 
+                        <button id="surprise-btn" type="button" class="bg-amber-500 text-white font-bold p-3 rounded-lg hover:bg-amber-600 transition" title="Surprise Me!">💡</button> 
+                        <button id="generate-btn" type="submit" class="flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:scale-105 transition"> 
+                            <span id="btn-text">Cook Up a Vibe</span> 
+                            <div id="btn-spinner" class="hidden flex items-center"><div class="w-5 h-5 border-2 rounded-full spinner mr-2 border-t-transparent"></div>Cooking...</div> 
+                        </button> 
+                    </form> 
+                    <p id="error-message" class="text-red-400 mt-2 text-center font-medium"></p> 
+                </div> 
+                <div id="content-container" class="mt-8"></div> 
             </section>
-
+            
             <footer class="text-center text-gray-500 pt-8 pb-16">
                 <p>© 2025 Genie ✨ | Your Home's Vibe Manager</p>
                 <p class="mt-2 text-sm">Made with 💜 for a better home experience</p>
@@ -109,9 +87,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script type="module" src="app-auth.js"></script>
-   
-</body>
-</html>
 </body>
 </html>
