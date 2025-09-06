@@ -4,27 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Genie ✨</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow: hidden; }
-        .glow-button { box-shadow: 0 0 5px theme('colors.pink.500'), 0 0 10px theme('colors.pink.500'), 0 0 15px theme('colors.purple.500'); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth;
+            overflow: hidden; /* Prevent scrollbars from floating objects */
+        }
+
+        /* A subtle glow effect for the main button */
+        .glow-button {
+            box-shadow: 0 0 5px theme('colors.pink.500'), 0 0 10px theme('colors.pink.500'), 0 0 15px theme('colors.purple.500');
+        }
+        
+        /* Animation for content fading in */
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-fade-in { 
+            animation: fadeIn 0.8s ease-out forwards; 
+        }
+
+        /* Animation delay classes */
         .animation-delay-200 { animation-delay: 200ms; }
         .animation-delay-400 { animation-delay: 400ms; }
         .animation-delay-600 { animation-delay: 600ms; }
-        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-        @keyframes shimmer { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
-        .floating-object { position: absolute; pointer-events: none; z-index: 0; opacity: 0; animation: fadeIn 1s ease-out forwards, float 6s ease-in-out infinite alternate; }
-        .genie-lamp { width: 80px; height: 80px; background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Genie_lamp_icon.svg/1200px-Genie_lamp_icon.svg.png') no-repeat center center / contain; filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.7)); animation-duration: 8s; }
-        .magic-orb { width: 30px; height: 30px; background: radial-gradient(circle at center, rgba(236, 72, 153, 0.8), rgba(147, 51, 234, 0.8)); border-radius: 50%; box-shadow: 0 0 15px rgba(236, 72, 153, 0.8), 0 0 25px rgba(147, 51, 234, 0.8); animation-duration: 5s; animation-delay: var(--delay); animation-name: float, shimmer; }
-        .magic-dust { width: 5px; height: 5px; background-color: rgba(255, 255, 255, 0.6); border-radius: 50%; box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); animation: float 3s ease-in-out infinite alternate, shimmer 2s ease-in-out infinite; animation-delay: var(--delay); }
+
+        /* Genie-related floating objects */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .floating-object {
+            position: absolute;
+            pointer-events: none; /* Allow clicks on content below */
+            z-index: 0; /* Keep behind text */
+            opacity: 0; /* Hidden initially, JS will fade them in */
+            animation: fadeIn 1s ease-out forwards, float 6s ease-in-out infinite alternate;
+        }
+
+        .genie-lamp {
+            width: 80px;
+            height: 80px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Genie_lamp_icon.svg/1200px-Genie_lamp_icon.svg.png') no-repeat center center / contain;
+            filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.7)); /* Purple shadow */
+            animation-duration: 8s; /* Slower float for the lamp */
+        }
+
+        .magic-orb {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle at center, rgba(236, 72, 153, 0.8), rgba(147, 51, 234, 0.8));
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.8), 0 0 25px rgba(147, 51, 234, 0.8);
+            animation-duration: 5s; /* Faster float for orbs */
+            animation-delay: var(--delay); /* Use CSS variable for delay */
+            animation-name: float, shimmer; /* Combine float and shimmer */
+        }
+
+        .magic-dust {
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: float 3s ease-in-out infinite alternate, shimmer 2s ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
+
     <nav class="bg-gray-900/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-700/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -38,7 +102,11 @@
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
-                    <button id="hamburger-btn" type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"><span class="sr-only">Open main menu</span><svg id="hamburger-open-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg><svg id="hamburger-close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+                    <button id="hamburger-btn" type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="hamburger-open-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        <svg id="hamburger-close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -49,27 +117,58 @@
             </div>
         </div>
     </nav>
+
     <main class="relative flex items-center justify-center overflow-hidden" style="min-height: calc(100vh - 4rem);">
         <div class="text-center px-4 z-10">
-            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight animate-fade-in opacity-0">Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Genie</span></h1>
-            <p class="mt-4 text-xl md:text-2xl text-gray-400 animate-fade-in opacity-0 animation-delay-200">Your home's vibe manager. <span class="font-semibold text-gray-300">IYKYK.</span></p>
-            <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-500 animate-fade-in opacity-0 animation-delay-400">Genie is here to sort the whole scene—from figuring out what to cook with your leftovers to reminding you about bills. Your home just got a major glow-up.</p>
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight animate-fade-in opacity-0">
+                Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Genie</span>
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-400 animate-fade-in opacity-0 animation-delay-200">
+                Your home's vibe manager. <span class="font-semibold text-gray-300">IYKYK.</span>
+            </p>
+            <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-500 animate-fade-in opacity-0 animation-delay-400">
+                Genie is here to sort the whole scene—from figuring out what to cook with your leftovers to reminding you about bills. Your home just got a major glow-up.
+            </p>
             <div class="mt-10 animate-fade-in opacity-0 animation-delay-600">
-                <a href="login.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg transform transition-transform hover:scale-105 glow-button">Enter the Vibe</a>
+                <a href="index.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg transform transition-transform hover:scale-105 glow-button">
+                    Enter the Vibe
+                </a>
             </div>
         </div>
         <div id="floating-objects-container" class="absolute inset-0"></div>
     </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             const openIcon = document.getElementById('hamburger-open-icon');
             const closeIcon = document.getElementById('hamburger-close-icon');
-            hamburgerBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); openIcon.classList.toggle('hidden'); closeIcon.classList.toggle('hidden'); });
+            hamburgerBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
             const floatingObjectsContainer = document.getElementById('floating-objects-container');
-            function createFloatingObject(type, count) { for (let i = 0; i < count; i++) { const obj = document.createElement('div'); obj.classList.add('floating-object', type); obj.style.left = (Math.random() * 100) + '%'; obj.style.top = (Math.random() * 100) + '%'; if (type === 'magic-orb' || type === 'magic-dust') { const size = Math.random() * (type === 'magic-orb' ? 20 : 3) + (type === 'magic-orb' ? 20 : 2); obj.style.width = size + 'px'; obj.style.height = size + 'px'; } obj.style.setProperty('--delay', (Math.random() * 5) + 's'); obj.style.animationDelay = (Math.random() * 2) + 's'; floatingObjectsContainer.appendChild(obj); } }
-            createFloatingObject('genie-lamp', 1); createFloatingObject('magic-orb', 8); createFloatingObject('magic-dust', 20);
+            function createFloatingObject(type, count) {
+                for (let i = 0; i < count; i++) {
+                    const obj = document.createElement('div');
+                    obj.classList.add('floating-object', type);
+                    obj.style.left = (Math.random() * 100) + '%';
+                    obj.style.top = (Math.random() * 100) + '%';
+                    if (type === 'magic-orb' || type === 'magic-dust') {
+                        const size = Math.random() * (type === 'magic-orb' ? 20 : 3) + (type === 'magic-orb' ? 20 : 2);
+                        obj.style.width = size + 'px';
+                        obj.style.height = size + 'px';
+                    }
+                    obj.style.setProperty('--delay', (Math.random() * 5) + 's');
+                    obj.style.animationDelay = (Math.random() * 2) + 's';
+                    floatingObjectsContainer.appendChild(obj);
+                }
+            }
+            createFloatingObject('genie-lamp', 1);
+            createFloatingObject('magic-orb', 8);
+            createFloatingObject('magic-dust', 20);
         });
     </script>
 </body>
