@@ -57,13 +57,23 @@ async function checkUserSession() {
     const { data, error } = await supabase.auth.getSession();
     
     // If there is no active session, or an error, redirect to login
-    if (!data.session) {
-        console.log("No active session found. Redirecting to login page.");
-        window.location.href = "login.html";
-    } else {
-        console.log("Active session found. User is logged in.");
-        // Optional: you can add code here to show user-specific content
-    }
+    async function checkUserSession() {
+  const { data, error } = await supabase.auth.getSession();
+
+  // Get the current page
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (!data.session && currentPage !== "login.html" && currentPage !== "signup.html") {
+    console.log("No active session found. Redirecting to login page.");
+    window.location.href = "login.html";
+  } else if (data.session && (currentPage === "login.html" || currentPage === "signup.html")) {
+    console.log("User already logged in. Redirecting to dashboard.");
+    window.location.href = "index.html"; 
+  } else {
+    console.log("Session valid or on correct page. No redirect needed.");
+  }
+}
+
 }
 
 // 2. Handle Logout
