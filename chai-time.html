@@ -10,7 +10,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        /* --- START: ADDED FOR VISIBILITY --- */
+        /* This ensures your page is never blank, even without internet */
+        body { 
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background fallback */
+            color: #ffffff; /* White text fallback */
+        }
+        /* --- END: ADDED FOR VISIBILITY --- */
+
         .toggle-bg:after { content: ''; position: absolute; top: 2px; left: 2px; background-color: white; border: 1px solid #d1d5db; border-radius: 9999px; height: 1.25rem; width: 1.25rem; transition: transform 0.2s ease-in-out; }
         input:checked + .toggle-bg:after { transform: translateX(1.25rem); }
         input:checked + .toggle-bg { background-color: #22c55e; }
@@ -28,13 +36,67 @@
     <button id="voice-btn" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl text-white transform hover:scale-110 transition-transform z-30" title="Activate Voice Command"><svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg></button>
     <div class="min-h-screen p-4 sm:p-8">
         <main class="max-w-5xl mx-auto space-y-12">
-            <header><div class="flex justify-between items-center mb-6"><div><h1 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-1">Genie ✨</h1><p class="text-gray-400">Your home's vibe manager. Scene sorted.</p></div><button id="settings-btn" class="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition" title="Settings"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2.12l-.15.1a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1 0-2.12l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-            <nav class="flex flex-wrap items-center justify-center gap-2 rounded-full bg-gray-800/50 p-3 sm:gap-4 sm:space-x-6">
-                <a href="index.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Mood-buddy</a>
-                <a href="recipe.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Recipes</a>
-                <a href="chai-time.html" class="rounded-full px-4 py-2 text-sm font-medium text-white bg-pink-600">Chai Time</a>
-                <a href="expenses.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Expenses</a>
-                <button id="logout-btn" class="rounded-full px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500 hover:text-white">Logout</button>
-            </nav>
+            <header>
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-1">Genie ✨</h1>
+                        <p class="text-gray-400">Your home's vibe manager. Scene sorted.</p>
+                    </div>
+                    <button id="settings-btn" class="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition" title="Settings">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2.12l-.15.1a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1 0-2.12l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                </div>
+                <nav class="flex flex-wrap items-center justify-center gap-2 rounded-full bg-gray-800/50 p-3 sm:gap-4 sm:space-x-6">
+                    <a href="index.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Mood-buddy</a>
+                    <a href="recipe.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Recipes</a>
+                    <a href="chai-time.html" class="rounded-full px-4 py-2 text-sm font-medium text-white bg-pink-600">Chai Time</a>
+                    <a href="expenses.html" class="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700">Expenses</a>
+                    <button id="logout-btn" class="rounded-full px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500 hover:text-white">Logout</button>
+                </nav>
             </header>
-            <section id="chai-module"><h2 class="text-2xl font-semibold mb-4">Chai Time Vibes ☕</h2><div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-lg p-6"><p class="text-gray-300 mb-4">Set the perfect mood for your chai time with curated music and lighting.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="bg-gray-700/50 p-4 rounded-xl"><h3 class="text-xl font-medium mb-3">Music Selection</h3><select id="music-select" class="w-full p-3 bg-gray-600 border border-gray-500 rounded-lg focus:ring-2 focus:ring-pink-500"><option value="lofi">Lo-Fi Beats</option><option value="classical">Classical Indian</option><option value="ambient">Ambient Sounds</option><option value="bollywood">Bollywood Acoustic</option></select><div class="mt-4 flex items-center justify-between"><span class="text-gray-300">Volume</span><input type="range" id="volume-slider" min="0" max="100" value="70" class="w-2/3"></div></div><div class="bg-gray-700/50 p-4 rounded-xl"><h3 class="text-xl font-medium mb-3">Lighting</h3><div class="flex items-center justify-between mb-4"><span class="text-gray-300">Warm Lights</span><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" id="warm-lights-toggle" class="sr-only peer"><div class="w-11 h-6 bg-gray-600 rounded-full toggle-bg"></div></label></div><div class="mt-4"><span class="text-gray-30
+
+            <section id="chai-module">
+                <h2 class="text-2xl font-semibold mb-4">Chai Time Vibes ☕</h2>
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-lg p-6">
+                    <p class="text-gray-300 mb-4">Set the perfect mood for your chai time with curated music and lighting.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-700/50 p-4 rounded-xl">
+                            <h3 class="text-xl font-medium mb-3">Music Selection</h3>
+                            <select id="music-select" class="w-full p-3 bg-gray-600 border border-gray-500 rounded-lg focus:ring-2 focus:ring-pink-500">
+                                <option value="lofi">Lo-Fi Beats</option>
+                                <option value="classical">Classical Indian</option>
+                                <option value="ambient">Ambient Sounds</option>
+                                <option value="bollywood">Bollywood Acoustic</option>
+                            </select>
+                            <div class="mt-4 flex items-center justify-between">
+                                <span class="text-gray-300">Volume</span>
+                                <input type="range" id="volume-slider" min="0" max="100" value="70" class="w-2/3">
+                            </div>
+                        </div>
+                        <div class="bg-gray-700/50 p-4 rounded-xl">
+                            <h3 class="text-xl font-medium mb-3">Lighting</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-gray-300">Warm Lights</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="warm-lights-toggle" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-600 rounded-full toggle-bg"></div>
+                                </label>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-gray-300">Dimmer</span>
+                                <input type="range" id="dimmer-slider" min="0" max="100" value="80" class="w-full mt-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <button id="apply-chai-btn" id = "apply-chai-settings "class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-pink-500 transition-all duration-300">
+                            Apply Chai Time
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

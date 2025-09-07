@@ -39,5 +39,146 @@
     </div>
     <script src="script.js"></script>
     <script type="module" src="app-auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Global elements
+    const voiceBtn = document.getElementById('voice-btn');
+    const settingsBtn = document.getElementById('settings-btn');
+    const modalContainer = document.getElementById('modal-container');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const toastEl = document.getElementById('toast');
+
+    // Toast notification function
+    function showToast(message, isSuccess = true) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.className = toastEl.className.replace(/bg-green-500|bg-red-500/, '');
+        toastEl.classList.add(isSuccess ? 'bg-green-500' : 'bg-red-500');
+        toastEl.classList.remove('bottom-[-100px]');
+        toastEl.classList.add('bottom-8');
+        setTimeout(() => {
+            toastEl.classList.remove('bottom-8');
+            toastEl.classList.add('bottom-[-100px]');
+        }, 3000);
+    }
+
+    // Settings modal logic
+    if (settingsBtn && modalContainer && modalCloseBtn) {
+        settingsBtn.addEventListener('click', () => {
+            modalTitle.textContent = "Settings";
+            modalBody.innerHTML = `<p>Welcome to your settings panel. More options coming soon!</p>`;
+            modalContainer.classList.remove('hidden');
+        });
+
+        const closeModal = () => {
+            modalContainer.classList.add('hidden');
+        };
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalContainer.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+    }
+
+    // Recipe page logic
+    if (document.getElementById('recipe-module')) {
+        const recipeForm = document.getElementById('recipe-form');
+        const ingredientsInput = document.getElementById('ingredients-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const surpriseBtn = document.getElementById('surprise-btn');
+        const contentContainer = document.getElementById('content-container');
+        const errorMessage = document.getElementById('error-message');
+
+        // Submit handler for recipe form
+        recipeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (ingredientsInput.value.trim() === '') {
+                errorMessage.textContent = 'Please enter at least one ingredient.';
+                return;
+            }
+            errorMessage.textContent = '';
+            generateBtn.querySelector('#btn-text').classList.add('hidden');
+            generateBtn.querySelector('#btn-spinner').classList.remove('hidden');
+            generateBtn.disabled = true;
+
+            setTimeout(() => {
+                const ingredients = ingredientsInput.value;
+                contentContainer.innerHTML = `
+                    <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 animate-fade-in">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-3">Vibe-a-licious ${ingredients.split(',')[0]} Dish!</h3>
+                        <p class="text-gray-300 mb-4">Here is a delicious recipe based on your ingredients: <strong>${ingredients}</strong>.</p>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-400">
+                            <li>Preheat your oven and prepare your ingredients.</li>
+                            <li>Combine the wet and dry ingredients in a large bowl.</li>
+                            <li>Cook for 20-25 minutes or until golden brown.</li>
+                            <li>Serve hot and enjoy the vibe!</li>
+                        </ol>
+                    </div>`;
+                generateBtn.querySelector('#btn-text').classList.remove('hidden');
+                generateBtn.querySelector('#btn-spinner').classList.add('hidden');
+                generateBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Surprise ingredients button
+        surpriseBtn.addEventListener('click', () => {
+            const surpriseIngredients = ['Chicken, ginger, garlic', 'Tomato, onion, capsicum', 'Paneer, cream, spices', 'Potato, peas, carrots'];
+            const randomIndex = Math.floor(Math.random() * surpriseIngredients.length);
+            ingredientsInput.value = surpriseIngredients[randomIndex];
+            showToast('Ingredients surprised!');
+        });
+
+        // Voice recognition logic
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            let isListening = false;
+            recognition.lang = 'en-IN';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            voiceBtn.addEventListener('click', () => {
+                if (isListening) {
+                    recognition.stop();
+                    return;
+                }
+                recognition.start();
+            });
+
+            recognition.onstart = () => {
+                isListening = true;
+                voiceBtn.classList.add('mic-listening');
+                showToast("Listening for ingredients...");
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                ingredientsInput.value = transcript.replace(/\.$/, '');
+                showToast(`Genie heard: ${transcript}`);
+                generateBtn.click();
+            };
+
+            recognition.onerror = (event) => {
+                let errMessage = `Error: ${event.error}. Please try again.`;
+                if (event.error === 'not-allowed') errMessage = "Mic access denied. Please allow it in browser settings.";
+                else if (event.error === 'no-speech') errMessage = "No speech was detected. Please try again.";
+                showToast(errMessage, false);
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                voiceBtn.classList.remove('mic-listening');
+            };
+        } else {
+            voiceBtn.addEventListener('click', () => {
+                showToast("Sorry, your browser doesn't support voice commands.", false);
+            });
+        }
+    }
+
+    // You can add other page-specific logic here similarly, condensed into this single DOMContentLoaded event
+});
+
+    </script>
 </body>
 </html>
